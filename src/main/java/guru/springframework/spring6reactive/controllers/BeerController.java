@@ -18,6 +18,11 @@ public class BeerController {
 
     private final BeerService beerService;
 
+    @PutMapping(BEER_PATH_ID)
+    Mono<ResponseEntity<Void>> updateBeer(@PathVariable("beerId") Integer beerId, @RequestBody BeerDTO beerDTO) {
+        return beerService.updateBeer(beerId, beerDTO).map(updatedBeer -> ResponseEntity.ok().build()); // Converti lo stream in una Response Entity
+    }
+
     @PostMapping(BEER_PATH)
     Mono<ResponseEntity<Void>> createNewBeer(@RequestBody BeerDTO beerDTO) {
         return beerService.saveNewBeer(beerDTO).map(savedDto -> ResponseEntity.created(UriComponentsBuilder.fromUriString("http://localhost:8080" + BEER_PATH_ID).build().toUri()).build());
