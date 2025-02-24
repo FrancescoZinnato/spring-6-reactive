@@ -14,6 +14,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class BeerController {
 
+    public static final String LOCALHOST = "http://localhost:8080";
     public static final String BEER_PATH = "/api/v2/beer";
     public static final String BEER_PATH_ID = BEER_PATH + "/{beerId}";
 
@@ -36,7 +37,7 @@ public class BeerController {
 
     @PostMapping(BEER_PATH)
     Mono<ResponseEntity<Void>> createNewBeer(@Validated @RequestBody BeerDTO beerDTO) {
-        return beerService.saveNewBeer(beerDTO).map(savedDto -> ResponseEntity.created(UriComponentsBuilder.fromUriString("http://localhost:8080" + BEER_PATH_ID).build().toUri()).build());
+        return beerService.saveNewBeer(beerDTO).map(savedDto -> ResponseEntity.created(UriComponentsBuilder.fromUriString(LOCALHOST + BEER_PATH_ID).build().toUri()).build());
     }
 
     @GetMapping(BEER_PATH_ID)
