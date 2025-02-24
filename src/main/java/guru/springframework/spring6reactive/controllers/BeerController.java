@@ -18,6 +18,16 @@ public class BeerController {
 
     private final BeerService beerService;
 
+    @DeleteMapping(BEER_PATH_ID)
+    Mono<ResponseEntity<Void>> deleteBeer(@PathVariable Integer beerId) {
+        return beerService.deleteBeerById(beerId).then(Mono.fromCallable(() -> ResponseEntity.noContent().build()));
+    }
+
+    @PatchMapping(BEER_PATH_ID)
+    Mono<ResponseEntity<Void>> patchBeer(@PathVariable Integer beerId, @RequestBody BeerDTO beerDTO) {
+        return beerService.patchBeer(beerId, beerDTO).map(patchedBeer -> ResponseEntity.ok().build());
+    }
+
     @PutMapping(BEER_PATH_ID)
     Mono<ResponseEntity<Void>> updateBeer(@PathVariable("beerId") Integer beerId, @RequestBody BeerDTO beerDTO) {
         return beerService.updateBeer(beerId, beerDTO).map(updatedBeer -> ResponseEntity.ok().build()); // Converti lo stream in una Response Entity
