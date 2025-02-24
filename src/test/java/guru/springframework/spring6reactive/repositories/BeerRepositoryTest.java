@@ -7,8 +7,6 @@ import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @DataR2dbcTest
 class BeerRepositoryTest {
 
